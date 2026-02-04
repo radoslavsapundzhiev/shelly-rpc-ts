@@ -11,6 +11,11 @@ import {
   shelly_bthomesensor_object_index_t,
 } from './BTHomeSensor.js';
 
+export type shelly_bthomecontrol_type_t = 'bthomecontrol';
+
+export type shelly_bthomecontrol_key_t =
+  `${shelly_bthomecontrol_type_t}:${shelly_component_id_t}`;
+
 type shelly_bthomecontrol_input_body_t<T = null> = {
   [key: shelly_bthomedevice_key_t]: {
     [
@@ -34,6 +39,39 @@ type shelly_bthomecontrol_input_light_action_t =
   | 'dim_up'
   | 'dim_down'
   | 'toggle';
+
+export type shelly_bthomecontrol_output_t =
+  | shelly_cover_key_t
+  | shelly_switch_key_t
+  | shelly_light_key_t
+  | "";
+
+export type shelly_bthomecontrol_input_t = 
+  | shelly_bthomecontrol_input_body_t<shelly_bthomecontrol_input_cover_action_t>[]
+  | shelly_bthomecontrol_input_body_t<shelly_bthomecontrol_input_switch_action_t>[]
+  | shelly_bthomecontrol_input_body_t<shelly_bthomecontrol_input_light_action_t>[];
+
+export type shelly_bthomecontrol_stage_type_t = "pairing" | "press" | "done" | "remove" | "error";
+
+export type shelly_bthomecontrol_learning_error_type_t = {
+  code: number;
+  msg: string | null;
+}
+
+export type shelly_bthomecontrol_status_t = {
+  id?: number;
+  learning?: {
+    stage: shelly_bthomecontrol_stage_type_t;
+    err: shelly_bthomecontrol_learning_error_type_t | null;
+    ts?: number;
+    duration?: number;
+  };
+};
+
+export type shelly_bthomecontrol_config_t = {
+  id: shelly_component_id_t;
+  blu_remote_cover_mode?: 0 | 1;
+}
 
 export type shelly_bthomecontrol_rpc_method_map_t = {
   'BTHomeControl.StartLearning': {
@@ -77,5 +115,27 @@ export type shelly_bthomecontrol_rpc_method_map_t = {
           inputs: shelly_bthomecontrol_input_body_t<shelly_bthomecontrol_input_light_action_t>[];
         }
     );
+  };
+  'BTHomeControl.Update': {
+    params: {
+      id: shelly_component_id_t;
+      output: shelly_bthomecontrol_output_t;
+      inputs: shelly_bthomecontrol_input_t;
+    };
+    result: null;
+  };
+  'BTHomeControl.Create': {
+    params: {
+      id: shelly_component_id_t;
+      output: shelly_bthomecontrol_output_t;
+      inputs: shelly_bthomecontrol_input_t;
+    };
+    result: {
+      id: number;
+      src: string;
+      params: {
+        id: shelly_component_id_t;
+      }
+    };
   };
 };

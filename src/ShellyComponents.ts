@@ -319,6 +319,12 @@ import {
   shelly_cury_type_t,
   shelly_cury_vial_info_t,
 } from './components/Cury.js';
+import {
+  shelly_bthomecontrol_config_t,
+  shelly_bthomecontrol_key_t,
+  shelly_bthomecontrol_status_t,
+  shelly_bthomecontrol_type_t,
+} from './components/BTHomeComponents/BTHomeControl.js';
 import { shelly_virtual_attrs_t } from './components/Virtual.js';
 
 export type shelly_component_id_t = number;
@@ -376,7 +382,8 @@ export type shelly_component_key_t =
   | shelly_zigbee_key_t
   | shelly_media_key_t
   | shelly_thermostat_key_t
-  | shelly_cury_key_t;
+  | shelly_cury_key_t
+  | shelly_bthomecontrol_key_t;
 
 export type shelly_component_helper_key_to_type_t<
   T extends shelly_component_key_t,
@@ -735,6 +742,12 @@ export type shelly_component_status_map_t =
       shelly_cury_config_t,
       shelly_cury_status_t,
       shelly_cury_vial_info_t
+    >
+  | component_entry_t<
+      shelly_bthomecontrol_key_t,
+      shelly_bthomecontrol_type_t,
+      shelly_bthomecontrol_config_t,
+      shelly_bthomecontrol_status_t
     >;
 
 export type shelly_component_status_t<T extends shelly_component_type_t> =

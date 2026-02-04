@@ -365,6 +365,17 @@ export {
   shelly_cury_vial_info_t,
 } from './components/Cury.js';
 
+export {
+  shelly_bthomecontrol_key_t,
+  shelly_bthomecontrol_type_t,
+  shelly_bthomecontrol_config_t,
+  shelly_bthomecontrol_status_t,
+  shelly_bthomecontrol_input_t,
+  shelly_bthomecontrol_output_t,
+  shelly_bthomecontrol_stage_type_t,
+  shelly_bthomecontrol_learning_error_type_t,
+} from './components/BTHomeComponents/BTHomeControl.js';
+
 // Shelly device types
 export {
   shelly_device_info_data_t,
